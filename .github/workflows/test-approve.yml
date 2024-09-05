@@ -1,0 +1,25 @@
+name: testing approving PRs
+
+on:
+  pull_request:
+    branches:
+      main
+    types: [opened]
+    # types: [auto_merge_enabled]
+
+jobs:
+  auto-approve:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'GitHub Actions Automation'
+    steps:
+    - uses: actions/github-script@v4
+      with:
+        script: |
+          const result = await github.pulls.createReview({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          pull_number: context.issue.number,
+          event: "APPROVE"
+          })
+          console.log(result.status)
+
