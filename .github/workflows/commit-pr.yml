@@ -8,10 +8,13 @@ permissions:
   actions: write
 
 jobs:
-  make-chage:
+  make-chage-and-PR:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
       - name: Create Branch
         run: |
           git fetch
