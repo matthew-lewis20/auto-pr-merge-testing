@@ -30,3 +30,5 @@ runs:
       shell: bash
       run: |
         gh pr merge -R matthew-lewis20/auto-pr-merge-testing -d -m ${{ env.PR_NUMBER }}
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
