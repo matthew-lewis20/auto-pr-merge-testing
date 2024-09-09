@@ -25,3 +25,8 @@ runs:
         review-message: "Auto approved automated PR"
         github-token: ${{ inputs.github-token }}
         pull-request-number: ${{ env.PR_NUMBER }}
+
+    - name: Merge PR
+      shell: bash
+      run: |
+        gh pr merge -R matthew-lewis20/auto-pr-merge-testing -d -m ${{ env.PR_NUMBER }}
