@@ -48,5 +48,5 @@ jobs:
         uses: matthew-lewis20/auto-pr-merge-testing/.github/actions/auto-approve-pr@main
         with:
           github-token: ${{ secrets.TEST_TOKEN }}
-          pr-url: ${PR_URL}
+          pr-url: ${{ env.PR_URL }}
           github-secret-token: ${{ secrets.GITHUB_TOKEN}}
