@@ -41,3 +41,8 @@ jobs:
           -H pr_update \
           --title 'Update of Service/Cluster Information' \
           --body 'Created by Github action' || exit 0
+
+      - name: auto approve
+        uses: matthew-lewis20/auto-pr-merge-testing/.github/actions/auto-approve-pr@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
