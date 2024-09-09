@@ -24,4 +24,4 @@ runs:
       with:
         review-message: "Auto approved automated PR"
         github-token: ${{ inputs.github-token }}
-        pull-request-number: $PR_NUMBER
+        pull-request-number: ${{ env.PR_NUMBER }}
