@@ -33,6 +33,6 @@ runs:
     - name: Merge PR
       shell: bash
       run: |
-        gh pr merge -R ${{ github.repository }} -d -m ${{ env.PR_NUMBER }}
+        gh pr merge -R ${{ github.repository }} -d -m --auto ${{ env.PR_NUMBER }}
       env:
         GH_TOKEN: ${{ inputs.github-secret-token }}
