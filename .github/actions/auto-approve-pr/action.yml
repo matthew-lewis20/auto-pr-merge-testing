@@ -5,11 +5,23 @@ inputs:
   github-token:
     description: github token used for the auto approve PR action
     required: true
+  pr-url:
+    description: github pr url created by github actions
 
 runs:
   using: "composite"
   steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Get PR number
+      shell: bash
+      run: |
+        pr_number=$(echo "${{ inputs.pr-url }}" | grep -o -E '[0-9]+$')
+        echo "PR_NUMBER=${pr_number}" >> "$GITHUB_ENV"
+
     - uses: hmarr/auto-approve-action@v4
       with:
         review-message: "Auto approved automated PR"
         github-token: ${{ inputs.github-token }}
+        pull-request-number: ${PR_NUMBER}
