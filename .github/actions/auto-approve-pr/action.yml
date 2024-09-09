@@ -7,6 +7,11 @@ inputs:
     required: true
   pr-url:
     description: github pr url created by github actions
+    required: true
+  github-secret-token:
+    description: uses github secret token
+    required: false
+  
 
 runs:
   using: "composite"
@@ -31,4 +36,4 @@ runs:
       run: |
         gh pr merge -R matthew-lewis20/auto-pr-merge-testing -d -m ${{ env.PR_NUMBER }}
       env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ inputs.github-secret-token }}
