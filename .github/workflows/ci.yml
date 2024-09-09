@@ -1,0 +1,10 @@
+name: CI Example
+
+on:
+  pull_request:
+
+jobs:
+  wait:
+    runs-on: ubuntu-latest
+    steps:
+    - run: sleep 30s
