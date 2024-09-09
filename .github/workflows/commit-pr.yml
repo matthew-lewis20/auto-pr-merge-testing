@@ -29,7 +29,7 @@ jobs:
 
       - name: Commit changes and commit PR
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TEST_TOKEN }}
         run: |
           git config user.name "GitHub Actions Automation"
           git config user.email "<>"
@@ -47,6 +47,6 @@ jobs:
       - name: auto approve
         uses: matthew-lewis20/auto-pr-merge-testing/.github/actions/auto-approve-pr@main
         with:
-          github-token: ${{ secrets.TEST_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           pr-url: ${{ env.PR_URL }}
-          github-secret-token: ${{ secrets.GITHUB_TOKEN}}
+          github-secret-token: ${{ secrets.TEST_TOKEN}}
