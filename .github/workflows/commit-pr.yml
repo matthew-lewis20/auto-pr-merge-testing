@@ -36,13 +36,23 @@ jobs:
           git commit -am "Updated Service/Cluster Information" || exit 0
           git push --set-upstream origin pr_update
   
-          gh pr create \
+          pr_url=$(gh pr create \
           -B main \
           -H pr_update \
           --title 'Update of Service/Cluster Information' \
-          --body 'Created by Github action' || exit 0
+          --body 'Created by Github action') || exit 0
 
-      - name: auto approve
-        uses: matthew-lewis20/auto-pr-merge-testing/.github/actions/auto-approve-pr@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          echo "PR_URL=${pr_url}" >> "$GITHUB_ENV"
+
+      - name: test pr output
+        run: |
+          echo "PR with jq: $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")"
+          echo "PR url: ${PR_URL}"
+          pr_number=$(echo "${PR_URL}" | grep -o -E '[0-9]+$')
+          echo "PR number: ${pr_number}"
+
+      # - name: auto approve
+      #   uses: matthew-lewis20/auto-pr-merge-testing/.github/actions/auto-approve-pr@main
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     # pr-number: ${{ github.event.client_payload.pull_request.number }}
