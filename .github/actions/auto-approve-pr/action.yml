@@ -34,6 +34,8 @@ runs:
       shell: bash
       run: |
         gh pr checks ${{ env.PR_NUMBER }} --watch
+      env:
+        GH_TOKEN: ${{ inputs.github-secret-token }}
 
     - name: Merge PR
       shell: bash
