@@ -30,9 +30,14 @@ runs:
         github-token: ${{ inputs.github-token }}
         pull-request-number: ${{ env.PR_NUMBER }}
 
+    - name: Wait for Checks
+      shell: bash
+      run: |
+        gh pr checks ${{ env.PR_NUMBER }} --watch
+
     - name: Merge PR
       shell: bash
       run: |
-        gh pr merge -R ${{ github.repository }} -d -m --auto ${{ env.PR_NUMBER }}
+        gh pr merge -R ${{ github.repository }} -d -m ${{ env.PR_NUMBER }}
       env:
         GH_TOKEN: ${{ inputs.github-secret-token }}
