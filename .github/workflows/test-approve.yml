@@ -3,23 +3,19 @@ name: testing approving PRs
 on:
   pull_request:
     branches:
-      main
+      pr_update
     types: [opened]
     # types: [auto_merge_enabled]
 
 jobs:
   auto-approve:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.user.login == 'GitHub Actions Automation'
+    if: github.actor == 'github-actions'
+    permissions:
+      pull-requests: write
     steps:
-    - uses: actions/github-script@v4
-      with:
-        script: |
-          const result = await github.pulls.createReview({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          pull_number: context.issue.number,
-          event: "APPROVE"
-          })
-          console.log(result.status)
+      - uses: hmarr/auto-approve-action@v4
+        with:
+          review-message: "Auto approved automated PR"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
