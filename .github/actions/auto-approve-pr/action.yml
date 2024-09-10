@@ -33,6 +33,7 @@ runs:
     - name: Wait for Checks
       shell: bash
       run: |
+        gh pr status
         gh pr checks ${{ env.PR_NUMBER }} --watch
       env:
         GH_TOKEN: ${{ inputs.github-secret-token }}
